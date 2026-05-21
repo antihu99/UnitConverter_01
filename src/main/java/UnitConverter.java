@@ -1,6 +1,8 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.unitconverter.boundary.output.PlainOutputRenderer;
 import com.unitconverter.entity.ConversionConstants;
+import com.unitconverter.entity.ConversionResult;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +15,7 @@ import java.util.Map;
 public class UnitConverter {
 
     private final Map<String, Double> metersPerOneUnit = new LinkedHashMap<>();
+    private final PlainOutputRenderer plainOutputRenderer = new PlainOutputRenderer();
 
     public UnitConverter() {
         resetToDefaults();
@@ -60,31 +63,32 @@ public class UnitConverter {
     }
 
     public List<ConversionRow> parseAndConvert(String line) {
-        parse(line);
-        String[] parts = line.split(":", 2);
-        return convertAll(parts[0].trim(), Double.parseDouble(parts[1].trim()));
+        ParsedLine parsed = requireParsedLine(line);
+        return convertAll(parsed.unit(), parsed.amount());
     }
 
     public String renderPlain(String line) {
-        String[] parts = line.split(":", 2);
-        String unit = parts[0].trim();
-        double value = Double.parseDouble(parts[1].trim());
-        List<ConversionRow> rows = parseAndConvert(line);
-        StringBuilder sb = new StringBuilder();
-        for (ConversionRow row : rows) {
-            sb.append(String.format(
-                    java.util.Locale.US,
-                    "%.1f %s = %.1f %s%n",
-                    value,
-                    unit,
-                    roundOneDecimal(row.value),
-                    row.unit));
-        }
-        return sb.toString().trim();
+        ParsedLine parsed = requireParsedLine(line);
+        List<ConversionRow> rows = convertAll(parsed.unit(), parsed.amount());
+        return plainOutputRenderer.render(
+                parsed.unit(), parsed.amount(), toConversionResults(parsed, rows));
     }
 
-    private static double roundOneDecimal(double value) {
-        return Math.round(value * 10.0) / 10.0;
+    private ParsedLine requireParsedLine(String line) {
+        parse(line);
+        String[] parts = line.split(":", 2);
+        return new ParsedLine(parts[0].trim(), Double.parseDouble(parts[1].trim()));
+    }
+
+    private List<ConversionResult> toConversionResults(ParsedLine parsed, List<ConversionRow> rows) {
+        List<ConversionResult> results = new ArrayList<>();
+        for (ConversionRow row : rows) {
+            results.add(new ConversionResult(parsed.unit(), parsed.amount(), row.unit, row.value));
+        }
+        return results;
+    }
+
+    private record ParsedLine(String unit, double amount) {
     }
 
     public List<ConversionRow> convertAll(String sourceUnit, double sourceAmount) {

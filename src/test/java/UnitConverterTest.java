@@ -21,6 +21,13 @@ class UnitConverterTest {
     }
 
     @Test
+    @DisplayName("TC-B-03: convert feet to meter reverse (delta 1e-5)")
+    void tcB03_convertFeetToMeter() {
+        UnitConverter converter = new UnitConverter();
+        assertEquals(0.30480, converter.convert("feet", 1.0, "meter"), 1e-5);
+    }
+
+    @Test
     @DisplayName("TC-A-02: missing colon throws IllegalArgumentException")
     void tcA02_missingColon_throwsIllegalArgumentException() {
         UnitConverter converter = new UnitConverter();

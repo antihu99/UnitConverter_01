@@ -8,4 +8,12 @@ public class UnitConverter {
         }
         return 0.0;
     }
+
+    public void parse(String line) {
+        if (line == null || !line.contains(":")) {
+            throw new IllegalArgumentException(
+                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
+                            + line + "\"");
+        }
+    }
 }

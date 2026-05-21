@@ -1,136 +1,83 @@
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unitconverter.boundary.output.PlainOutputRenderer;
-import com.unitconverter.entity.ConversionConstants;
+import com.unitconverter.boundary.parser.InputValidator;
+import com.unitconverter.boundary.parser.LineParser;
+import com.unitconverter.boundary.parser.ParsedInput;
+import com.unitconverter.data.config.ConfigurationLoader;
+import com.unitconverter.entity.ConversionEngine;
 import com.unitconverter.entity.ConversionResult;
+import com.unitconverter.entity.UnitRegistry;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
+/**
+ * 테스트·GREEN용 얇은 파사드 — Domain/Boundary/Data BCE에 위임.
+ */
 public class UnitConverter {
 
-    private final Map<String, Double> metersPerOneUnit = new LinkedHashMap<>();
-    private final PlainOutputRenderer plainOutputRenderer = new PlainOutputRenderer();
+    private final UnitRegistry registry;
+    private final ConversionEngine engine;
+    private final LineParser lineParser;
+    private final InputValidator validator;
+    private final PlainOutputRenderer plainOutputRenderer;
+    private final ConfigurationLoader configurationLoader;
 
     public UnitConverter() {
-        resetToDefaults();
+        this(UnitRegistry.withDefaults());
+    }
+
+    UnitConverter(UnitRegistry registry) {
+        this.registry = registry;
+        this.engine = new ConversionEngine(registry);
+        this.lineParser = new LineParser();
+        this.validator = new InputValidator(registry);
+        this.plainOutputRenderer = new PlainOutputRenderer();
+        this.configurationLoader = new ConfigurationLoader();
     }
 
     public double convert(String sourceUnit, double sourceAmount, String targetUnit) {
-        requireKnownUnit(sourceUnit);
-        requireKnownUnit(targetUnit);
-        double amountInMeters = sourceAmount * metersPerOneUnit.get(sourceUnit);
-        return amountInMeters / metersPerOneUnit.get(targetUnit);
+        return engine.convert(sourceUnit, sourceAmount, targetUnit);
     }
 
     public void parse(String line) {
-        if (line == null || !line.contains(":")) {
-            throw new IllegalArgumentException(
-                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
-                            + line + "\"");
-        }
-        String[] parts = line.split(":", 2);
-        String unit = parts[0].trim();
-        double amount;
-        try {
-            amount = Double.parseDouble(parts[1].trim());
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(
-                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
-                            + line + "\"");
-        }
-        if (amount < 0) {
-            throw new IllegalArgumentException(
-                    "ERROR [ERR-VAL-002]: Length must be non-negative. Got " + amount + ".");
-        }
-        requireKnownUnit(unit);
-    }
-
-    private void requireKnownUnit(String unit) {
-        if (!metersPerOneUnit.containsKey(unit)) {
-            throw new IllegalArgumentException(
-                    "ERROR [ERR-DOM-003]: Unknown unit \"" + unit + "\".");
-        }
+        ParsedInput input = lineParser.parseConversionLine(line);
+        validator.validate(input);
     }
 
     public void registerUnit(String unitName, double metersPerOne) {
-        metersPerOneUnit.put(unitName, metersPerOne);
+        registry.register(unitName, metersPerOne);
     }
 
     public List<ConversionRow> parseAndConvert(String line) {
-        ParsedLine parsed = requireParsedLine(line);
-        return convertAll(parsed.unit(), parsed.amount());
+        ParsedInput input = lineParser.parseConversionLine(line);
+        validator.validate(input);
+        return toConversionRows(engine.convertAll(input.unit(), input.amount()));
     }
 
     public String renderPlain(String line) {
-        ParsedLine parsed = requireParsedLine(line);
-        List<ConversionRow> rows = convertAll(parsed.unit(), parsed.amount());
+        ParsedInput input = lineParser.parseConversionLine(line);
+        validator.validate(input);
         return plainOutputRenderer.render(
-                parsed.unit(), parsed.amount(), toConversionResults(parsed, rows));
-    }
-
-    private ParsedLine requireParsedLine(String line) {
-        parse(line);
-        String[] parts = line.split(":", 2);
-        return new ParsedLine(parts[0].trim(), Double.parseDouble(parts[1].trim()));
-    }
-
-    private List<ConversionResult> toConversionResults(ParsedLine parsed, List<ConversionRow> rows) {
-        List<ConversionResult> results = new ArrayList<>();
-        for (ConversionRow row : rows) {
-            results.add(new ConversionResult(parsed.unit(), parsed.amount(), row.unit, row.value));
-        }
-        return results;
-    }
-
-    private record ParsedLine(String unit, double amount) {
+                input.unit(), input.amount(), engine.convertAll(input.unit(), input.amount()));
     }
 
     public List<ConversionRow> convertAll(String sourceUnit, double sourceAmount) {
-        requireKnownUnit(sourceUnit);
-        double amountInMeters = sourceAmount * metersPerOneUnit.get(sourceUnit);
-        List<ConversionRow> results = new ArrayList<>();
-        for (Map.Entry<String, Double> entry : metersPerOneUnit.entrySet()) {
-            double converted = amountInMeters / entry.getValue();
-            results.add(new ConversionRow(entry.getKey(), converted));
-        }
-        return results;
+        return toConversionRows(engine.convertAll(sourceUnit, sourceAmount));
     }
 
     public void loadConfig(String path) {
-        Path filePath = Paths.get(path);
-        if (!Files.exists(filePath)) {
-            resetToDefaults();
-            return;
-        }
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = mapper.readTree(filePath.toFile());
-            metersPerOneUnit.clear();
-            metersPerOneUnit.put("meter", ConversionConstants.METERS_PER_METER);
-            JsonNode units = root.get("units");
-            if (units != null && units.isArray()) {
-                for (JsonNode unit : units) {
-                    metersPerOneUnit.put(
-                            unit.get("name").asText(),
-                            unit.get("metersPerOneUnit").asDouble());
-                }
-            }
-        } catch (Exception e) {
-            resetToDefaults();
-        }
+        UnitRegistry loaded = configurationLoader.loadWithFallback(Paths.get(path));
+        registry.clear();
+        registry.putAll(loaded.snapshot());
     }
 
-    private void resetToDefaults() {
-        metersPerOneUnit.clear();
-        metersPerOneUnit.put("meter", ConversionConstants.METERS_PER_METER);
-        metersPerOneUnit.put("feet", ConversionConstants.METERS_PER_FEET);
-        metersPerOneUnit.put("yard", ConversionConstants.METERS_PER_YARD);
+    private static List<ConversionRow> toConversionRows(List<ConversionResult> results) {
+        List<ConversionRow> rows = new ArrayList<>();
+        for (ConversionResult result : results) {
+            rows.add(new ConversionRow(result.targetUnit(), result.targetAmount()));
+        }
+        return rows;
     }
 
     public static final class ConversionRow {

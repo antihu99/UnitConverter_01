@@ -47,4 +47,9 @@ public class UnitRegistry {
     public void putAll(Map<String, Double> units) {
         metersPerOneUnit.putAll(units);
     }
+
+    /** 설정 로드 등으로 레지스트리 내용을 통째로 교체할 때 사용. */
+    public Map<String, Double> snapshot() {
+        return new LinkedHashMap<>(metersPerOneUnit);
+    }
 }

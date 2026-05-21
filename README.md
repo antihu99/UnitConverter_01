@@ -14,7 +14,8 @@
 - [입력 형식 계약](#입력-형식-계약)
 - [아키텍처](#아키텍처)
 - [테스트 실행](#테스트-실행)
-- [RED 단계 To-Do 리스트](#red-단계-to-do-리스트)
+- [RED / GREEN 단계 To-Do 리스트](#red--green-단계-to-do-리스트)
+- [Golden Master 회귀 안전장치](#golden-master-회귀-안전장치)
 - [설정 파일 (JSON/YAML)](#설정-파일-jsonyaml)
 - [출력 포맷](#출력-포맷)
 - [기여 가이드 (Contributing)](#기여-가이드-contributing)
@@ -294,10 +295,10 @@ mvn verify
 
 ---
 
-## RED 단계 To-Do 리스트
+## RED / GREEN 단계 To-Do 리스트
 
 > 이 체크리스트는 test_plan.md 기반으로 생성되었습니다.
-> 각 항목은 RED(실패 테스트 작성) 완료 시 체크합니다.
+> RED: 실패 테스트 작성 완료 시 체크 · GREEN: 최소 구현·PASS 완료 시 체크.
 
 ### Track A — UI / Boundary 테스트
 - [ ] TC-A-01: 정상 입력 "meter:2.5" → 변환 결과 반환 (Happy Path)
@@ -325,6 +326,25 @@ mvn verify
 ### 결함 목록 연결
 - [x] [docs/09_defect_list.md](docs/09_defect_list.md) 생성 및 발견 결함 기록 (DEF-001–031, Open)
 - [ ] 모든 결함 수정 후 회귀 테스트 통과 확인
+
+## Golden Master 회귀 안전장치
+
+> Refactoring 시작 전 구축. GREEN 완료 후 즉시 적용.
+
+### 기준 파일 생성
+- [ ] GM-01: golden_master_expected.txt 생성 (meter:2.5 기준 출력)
+- [ ] GM-02: feet:1.0 / yard:1.0 / meter:0.0 시나리오 추가
+- [ ] GM-03: git add src/test/resources/golden_master_expected.txt (버전 관리 포함)
+
+### 테스트 코드
+- [ ] GM-04: GoldenMasterTest.java + golden_master_expected.txt 작성
+- [ ] GM-05: approve 패턴 적용 (파일 없으면 생성, 있으면 비교)
+- [ ] GM-06: mvn test -Dgroups=golden_master → PASS 확인
+
+### CI 연동
+- [ ] GM-07: .github/workflows/golden_master.yml 작성
+- [ ] GM-08: PR 머지 차단 (required status check) 설정
+- [ ] GM-09: Refactoring 후 Golden Master 재실행 → PASS 확인
 
 ---
 
@@ -508,6 +528,7 @@ MIT License — **학습용** 프로젝트입니다. 자유롭게 fork·수정·
 | [docs/08_red_단계_수정전략.md](docs/08_red_단계_수정전략.md) | RED 결함 분석·GREEN diff |
 | [docs/09_defect_list.md](docs/09_defect_list.md) | 결함 목록 (DEF-001–031) |
 | [docs/11_GREEN_전체_검증_결과.md](docs/11_GREEN_전체_검증_결과.md) | GREEN 전체 검증 (TC·JaCoCo·정적 체크) |
+| [docs/12_리팩토링_계획서.md](docs/12_리팩토링_계획서.md) | REFACTORING 대상·Wave·회귀 검증 계획 |
 | [report/01_SPEC_단계_작업보고서.md](report/01_SPEC_단계_작업보고서.md) | SPEC 단계 작업 보고서 (Phase 1–6) |
 | [report/02_RED_단계_작업보고서.md](report/02_RED_단계_작업보고서.md) | RED 단계 작업 보고서 |
 | [prompting/02_RED_대화_전체.md](prompting/02_RED_대화_전체.md) | RED 단계 Agent 대화 |

@@ -6,8 +6,9 @@
 | [02_RED_대화_전체.md](./02_RED_대화_전체.md) | RED 단계 대화 요약 (Turn 1–46) |
 | [03_GREEN_대화_전체.md](./03_GREEN_대화_전체.md) | GREEN 단계 대화 (Turn 1–30) |
 | [04_GREEN_A-01_merge_대화_전체.md](./04_GREEN_A-01_merge_대화_전체.md) | GREEN → A-01 PR #5 merge·브랜치 삭제 (Turn 1–4) |
-| [My_All_prompt.md](./My_All_prompt.md) | **사용자 프롬프트만** (No.1–88) |
-| [git_prompt.md](./git_prompt.md) | Git/GitHub 명령 모음 (§11 GREEN) |
+| [05_REFACTORING_대화_전체.md](./05_REFACTORING_대화_전체.md) | REFACTORING 단계 대화 (Turn 1–33) |
+| [My_All_prompt.md](./My_All_prompt.md) | **사용자 프롬프트만** (No.1–106) |
+| [git_prompt.md](./git_prompt.md) | Git/GitHub 명령 모음 (§11 GREEN, §12 REFACTORING) |
 
 ## Markdown 표기 규칙
 

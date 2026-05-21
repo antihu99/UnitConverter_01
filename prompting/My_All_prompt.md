@@ -92,6 +92,24 @@
 | 86 | 사용자 | 모든 TC(TC-A-01~07, TC-B-01~07)가 통과한 후 전체 테스트를 실행하라.<br><br>mvn test # 또는: gradle test<br><br>커버리지 측정:<br>mvn jacoco:report # target/site/jacoco/index.html<br><br>확인 항목:<br>- 모든 TC PASS (0 failures)<br>- Domain Logic 커버리지 ≥ 95%<br>- Boundary Layer 커버리지 ≥ 85%<br>- 비율 상수 3.28084 / 1.09361이 인라인으로 남아 있지 않음<br>- main() 함수에 변환 로직이 남아 있지 않음 (Domain으로 분리됨) |
 | 87 | 사용자 | 전체 검증 결과를 DOCS 폴더에 저장해줘 |
 | 88 | 사용자 | AGENT와의 대화를 prompting 폴더에 저장해주고, 내가 입력한 prompt 는 @prompting/My_All_prompt.md  에 덧붙여 주고, @prompting/git_prompt.md  파일에는 git 명령어만 저장해줘. 마지막으로 report 폴더에 보고서를 작성해줘 |
+| 89 | 사용자 | a-01 에서 REFACTORING 브랜치를 생성해 주세요, 생성 후 원격과 로컬을 동기화해주세요 |
+| 90 | 사용자 | green 브랜치과 a-01 브랜치를 merge 한 prompt 대화 내용을 prompting 폴더에 저장해주세요 |
+| 91 | 사용자 | 네 (merge 대화 아카이브 확인) |
+| 92 | 사용자 | [P] Golden Master 기준 파일 생성 — 4 시나리오, approve 패턴, `golden_master_expected.txt` |
+| 93 | 사용자 | [P] Golden Master 테스트 코드 — `GoldenMasterTest.java`, `@Tag("golden_master")`, GM-TC-01~04 |
+| 94 | 사용자 | README에 Golden Master 회귀 안전장치 섹션(GM-01~09) 추가 |
+| 95 | 사용자 | 코드 수정 없이: 테스트 존재 여부 + 테스트 없이 리팩토링 금지 이유 |
+| 96 | 사용자 | `UnitConverter.java` 코드 스멜 표 분석 (수정 금지) |
+| 97 | 사용자 | ECB 패턴 분석 — main() 혼재, 이동 대상, OCP 구조 (수정 금지) |
+| 98 | 사용자 | 리팩토링 계획서 작성 (R-U1~R-L4, 검증 방법) — 수정 금지 |
+| 99 | 사용자 | DOCS 폴더에 문서로 저장해줘 (`12_리팩토링_계획서.md`) |
+| 100 | 사용자 | Dual-Track REFACTORING STEP별 커밋, 계약 불변, `12_리팩토링_계획서.md` 메시지 참조 |
+| 101 | 사용자 | 네 |
+| 102 | 사용자 | 모든 걸 다 진행해주세요 |
+| 103 | 사용자 | 로컬과 원격을 동기화 주세요 |
+| 104 | 사용자 | A-01 과 REFACTORING PR 을 생성해 주세요 "REFACTORING 단계" |
+| 105 | 사용자 | 리팩토링 완료 후 전체 테스트·커버리지 → DOCS 저장 (TC, GM, if-else, 매직 넘버, 분리, 커버리지) |
+| 106 | 사용자 | REPORT 폴더에 보고서 작성, PROMPTING 폴더에 PROMPT 저장 |
 ---
 
 ## 프롬프트 흐름 요약
@@ -125,6 +143,7 @@ flowchart LR
 | **8. 문서·명령 아카이브** | 27, 32–35 | 대화·Git 명령·프롬프트 목록 보존·파일명 규칙 통일 | `00_SPEC_PROMPT.md`(원본 transcript) | `00_SPEC_PROMPT.md`, `git_prompt.md`, `My_All_prompt.md`, `report/01_SPEC` |
 | **9. RED·TDD** | 36–58 | 브랜치 red, RED 스텁·테스트·결함·보고 | `08_red_단계_수정전략`, `09_defect_list` | `06`–`10` docs, `report/02`, BCE 스텁, `UiBoundaryRedTest` |
 | **10. GREEN·검증** | 59–88 | `green` 브랜치·TC별 최소 구현·전체 검증·아카이브 | `00_PRD.md` §3.2, `08_red_단계_수정전략` | `UnitConverter.java`, `docs/11_GREEN_전체_검증_결과.md`, `report/03` |
+| **11. REFACTORING** | 89–106 | Golden Master·분석·BCE 리팩터·PR #6·검증·아카이브 | `12_리팩토링_계획서.md` | `ConvertLengthUseCase`, `docs/13_REFACTORING_전체_검증_결과.md`, `report/04` |
 
 ### No별 한 줄 의도·참조
 
@@ -169,6 +188,11 @@ flowchart LR
 | 69–77 | TC-B-01~03, TC-A-02~03 단계별 GREEN·커밋 | `UnitConverterTest.java`, `UnitConverter.java` |
 | 78–85 | TC 일괄 GREEN·푸시·전체 `mvn test`·JaCoCo | `docs/11_GREEN_전체_검증_결과.md` |
 | 86–88 | GREEN 대화·프롬프트·git·보고 아카이브 | `03_GREEN_대화_전체.md`, `git_prompt.md` §11 |
+| 89–91 | `refactoring` 브랜치·merge 대화 아카이브 | `origin/A-01`, `04_GREEN_A-01_merge_대화_전체.md` |
+| 92–94 | Golden Master 기준·테스트·README | `golden_master_expected.txt`, `GoldenMasterTest.java` |
+| 95–99 | 스멜·ECB·계획서(분석만) → docs 저장 | `12_리팩토링_계획서.md` |
+| 100–103 | REFACTORING 구현·동기화 | BCE 위임, `ConvertLengthUseCase`, `RoundingPolicy` |
+| 104–106 | PR #6·검증 docs·report/prompting 아카이브 | `13_REFACTORING_전체_검증_결과.md`, `report/04` |
 
 ### 동기화 규칙 (프롬프트 흐름에서 반복된 전제)
 
@@ -196,10 +220,15 @@ flowchart LR
 | `prompting/00_SPEC_PROMPT.md` | Agent 전체 대화 (Spec) |
 | `prompting/02_RED_대화_전체.md` | Agent 대화 (RED) |
 | `prompting/03_GREEN_대화_전체.md` | Agent 대화 (GREEN) |
+| `prompting/04_GREEN_A-01_merge_대화_전체.md` | GREEN → A-01 merge 대화 |
+| `prompting/05_REFACTORING_대화_전체.md` | Agent 대화 (REFACTORING) |
 | `prompting/git_prompt.md` | Git/GitHub 명령 모음 |
 | `prompting/My_All_prompt.md` | 사용자 프롬프트만 (본 파일) |
 | `docs/11_GREEN_전체_검증_결과.md` | GREEN 전 TC·커버리지 검증 |
+| `docs/12_리팩토링_계획서.md` | REFACTORING 계획 |
+| `docs/13_REFACTORING_전체_검증_결과.md` | REFACTORING 검증 |
 | `report/03_GREEN_단계_작업보고서.md` | GREEN 단계 보고 |
+| `report/04_REFACTORING_단계_작업보고서.md` | REFACTORING 단계 보고 |
 
 ### Markdown 표기 (GitHub 취소선 방지)
 
@@ -211,4 +240,4 @@ flowchart LR
 
 ---
 
-*총 사용자 프롬프트: **88개** (No.1–88). Spec 1–35 · RED 36–58 · GREEN 59–88. GREEN 후 `mvn test` 31건 PASS.*
+*총 사용자 프롬프트: **106개** (No.1–106). Spec 1–35 · RED 36–58 · GREEN 59–88 · REFACTORING 89–106. REFACTORING 후 `mvn test` 35건 PASS (Golden Master 4건 포함).*

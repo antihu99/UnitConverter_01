@@ -576,3 +576,86 @@ git push origin green; git log origin/green -5 --oneline; git status -sb
 ```powershell
 git log -1 --oneline; git branch --show-current
 ```
+
+---
+
+## 12. REFACTORING 단계 — 브랜치·푸시·PR (2026-05-21)
+
+> REFACTORING 세션 Agent 실행 `git` / `gh` 명령만 (`mvn` 제외).
+
+### 12.1
+
+```powershell
+git checkout A-01
+git pull origin A-01
+```
+
+### 12.2
+
+```powershell
+git checkout -b refactoring
+```
+
+### 12.3
+
+```powershell
+git push -u origin refactoring
+```
+
+### 12.4
+
+```powershell
+git fetch origin --prune
+git branch -vv
+git status -sb
+```
+
+### 12.5
+
+```powershell
+git rev-parse HEAD
+git rev-parse origin/refactoring
+git rev-parse origin/A-01
+```
+
+### 12.6
+
+```powershell
+git rev-list --left-right --count origin/refactoring...refactoring
+```
+
+### 12.7
+
+```powershell
+git push origin refactoring
+```
+
+### 12.8
+
+```powershell
+git log --oneline A-01..HEAD
+```
+
+### 12.9
+
+```powershell
+git diff A-01...refactoring --stat
+```
+
+### 12.10
+
+```powershell
+gh pr create --base A-01 --head refactoring --title "REFACTORING 단계" --body "..."
+```
+
+### 12.11 REFACTORING 커밋 메시지 (참고)
+
+| 커밋 | 메시지 (요약) |
+|------|----------------|
+| `07a83f0` | `refactor(boundary): 순번2 R-U3 App.main 출력을 PlainOutputRenderer로 위임` |
+| `8434a31` | `refactor(boundary): 순번3 R-U3 renderPlain PlainOutputRenderer 위임` |
+| `f34999a` | `refactor(domain): 순번1,6 R-L1 R-L4 파사드 BCE 위임` |
+| `216e13a` | `refactor(control): 순번2 ConvertLengthUseCase 추출` |
+| `ff813ca` | `refactor(domain): 순번7 RoundingPolicy` |
+| `5a598f6` | `test: Golden Master 회귀 테스트 및 생성 스크립트` |
+| `b4670ba` | `docs: 12_리팩토링_계획서 및 README Golden Master 섹션` |

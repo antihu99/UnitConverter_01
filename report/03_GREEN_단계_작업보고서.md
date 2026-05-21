@@ -28,7 +28,7 @@
 | Domain line coverage | ✅ **98%** (목표 ≥ 95%) |
 | Boundary line coverage | ✅ **100%** (목표 ≥ 85%) |
 | 비율 인라인 금지 | ✅ `ConversionConstants`만 |
-| REFACTORING | ⏳ `refactoring` 브랜치 예정 |
+| REFACTORING | ✅ [04_REFACTORING_단계_작업보고서.md](./04_REFACTORING_단계_작업보고서.md) |
 
 **핵심 메시지:** RED에서 고정한 14+17 테스트 계약을 **최소 구현**으로 충족했고, BCE 레이어(`entity` / `boundary` / `data`)와 파사드 `UnitConverter`가 GREEN 기준을 만족한다. 상세 수치는 [docs/11_GREEN_전체_검증_결과.md](../docs/11_GREEN_전체_검증_결과.md)를 참조한다.
 
@@ -165,7 +165,7 @@ mvn clean test
 | 2 | 구조 정리·중복 제거 (계약·테스트 불변) |
 | 3 | `mvn test` + JaCoCo 회귀 |
 | 4 | PR `green` → `A-01` merge 검토 |
-| 5 | [04_REFACTORING_단계_작업보고서.md](./04_REFACTORING_단계_작업보고서.md) 작성 (예정) |
+| 5 | [04_REFACTORING_단계_작업보고서.md](./04_REFACTORING_단계_작업보고서.md) ✅ 완료 |
 
 ---
 

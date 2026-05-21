@@ -1,6 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -39,6 +41,22 @@ class UnitConverterTest {
     void tcA03_negativeValue_throwsIllegalArgumentException() {
         UnitConverter converter = new UnitConverter();
         assertThrows(IllegalArgumentException.class, () -> converter.parse("meter:-1.0"));
+    }
+
+    @Test
+    @DisplayName("TC-B-04: convertAll returns all registered units")
+    void tcB04_convertAll_returnsAllRegisteredUnits() {
+        UnitConverter converter = new UnitConverter();
+        List<UnitConverter.ConversionRow> rows = converter.convertAll("meter", 1.0);
+        assertEquals(3, rows.size());
+    }
+
+    @Test
+    @DisplayName("TC-B-05: registerUnit cubit then convert to meter")
+    void tcB05_registerUnit_thenConvert() {
+        UnitConverter converter = new UnitConverter();
+        converter.registerUnit("cubit", 0.4572);
+        assertEquals(0.4572, converter.convert("cubit", 1.0, "meter"), 1e-5);
     }
 
     @Test

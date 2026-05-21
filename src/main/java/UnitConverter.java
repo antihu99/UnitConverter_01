@@ -43,6 +43,21 @@ public class UnitConverter {
         }
     }
 
+    public void registerUnit(String unitName, double metersPerOne) {
+        metersPerOneUnit.put(unitName, metersPerOne);
+    }
+
+    public List<ConversionRow> convertAll(String sourceUnit, double sourceAmount) {
+        requireKnownUnit(sourceUnit);
+        double amountInMeters = sourceAmount * metersPerOneUnit.get(sourceUnit);
+        List<ConversionRow> results = new ArrayList<>();
+        for (Map.Entry<String, Double> entry : metersPerOneUnit.entrySet()) {
+            double converted = amountInMeters / entry.getValue();
+            results.add(new ConversionRow(entry.getKey(), converted));
+        }
+        return results;
+    }
+
     private void resetToDefaults() {
         metersPerOneUnit.clear();
         metersPerOneUnit.put("meter", ConversionConstants.METERS_PER_METER);

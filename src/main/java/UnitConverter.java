@@ -1,5 +1,10 @@
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unitconverter.entity.ConversionConstants;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -47,6 +52,34 @@ public class UnitConverter {
         metersPerOneUnit.put(unitName, metersPerOne);
     }
 
+    public List<ConversionRow> parseAndConvert(String line) {
+        parse(line);
+        String[] parts = line.split(":", 2);
+        return convertAll(parts[0].trim(), Double.parseDouble(parts[1].trim()));
+    }
+
+    public String renderPlain(String line) {
+        String[] parts = line.split(":", 2);
+        String unit = parts[0].trim();
+        double value = Double.parseDouble(parts[1].trim());
+        List<ConversionRow> rows = parseAndConvert(line);
+        StringBuilder sb = new StringBuilder();
+        for (ConversionRow row : rows) {
+            sb.append(String.format(
+                    java.util.Locale.US,
+                    "%.1f %s = %.1f %s%n",
+                    value,
+                    unit,
+                    roundOneDecimal(row.value),
+                    row.unit));
+        }
+        return sb.toString().trim();
+    }
+
+    private static double roundOneDecimal(double value) {
+        return Math.round(value * 10.0) / 10.0;
+    }
+
     public List<ConversionRow> convertAll(String sourceUnit, double sourceAmount) {
         requireKnownUnit(sourceUnit);
         double amountInMeters = sourceAmount * metersPerOneUnit.get(sourceUnit);
@@ -56,6 +89,30 @@ public class UnitConverter {
             results.add(new ConversionRow(entry.getKey(), converted));
         }
         return results;
+    }
+
+    public void loadConfig(String path) {
+        Path filePath = Paths.get(path);
+        if (!Files.exists(filePath)) {
+            resetToDefaults();
+            return;
+        }
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(filePath.toFile());
+            metersPerOneUnit.clear();
+            metersPerOneUnit.put("meter", ConversionConstants.METERS_PER_METER);
+            JsonNode units = root.get("units");
+            if (units != null && units.isArray()) {
+                for (JsonNode unit : units) {
+                    metersPerOneUnit.put(
+                            unit.get("name").asText(),
+                            unit.get("metersPerOneUnit").asDouble());
+                }
+            }
+        } catch (Exception e) {
+            resetToDefaults();
+        }
     }
 
     private void resetToDefaults() {

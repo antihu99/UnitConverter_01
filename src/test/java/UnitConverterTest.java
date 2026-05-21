@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -44,6 +45,37 @@ class UnitConverterTest {
     }
 
     @Test
+    @DisplayName("TC-A-01: happy path meter:2.5 returns conversions")
+    void tcA01_parseAndConvert_happyPath() {
+        UnitConverter converter = new UnitConverter();
+        List<UnitConverter.ConversionRow> rows = converter.parseAndConvert("meter:2.5");
+        assertEquals(3, rows.size());
+        double feet = rows.stream()
+                .filter(r -> "feet".equals(r.unit))
+                .findFirst()
+                .orElseThrow()
+                .value;
+        assertEquals(8.20210, feet, 1e-5);
+    }
+
+    @Test
+    @DisplayName("TC-A-06: renderPlain preserves source unit and value")
+    void tcA06_renderPlain_preservesSource() {
+        UnitConverter converter = new UnitConverter();
+        String output = converter.renderPlain("meter:2.5");
+        assertTrue(output.contains("2.5 meter"));
+        assertTrue(output.contains("8.2 feet"));
+    }
+
+    @Test
+    @DisplayName("TC-A-07: value zero is valid")
+    void tcA07_zeroValue_isValid() {
+        UnitConverter converter = new UnitConverter();
+        converter.parse("meter:0");
+        assertEquals(0.0, converter.convert("meter", 0.0, "feet"), 1e-5);
+    }
+
+    @Test
     @DisplayName("TC-B-04: convertAll returns all registered units")
     void tcB04_convertAll_returnsAllRegisteredUnits() {
         UnitConverter converter = new UnitConverter();
@@ -57,6 +89,25 @@ class UnitConverterTest {
         UnitConverter converter = new UnitConverter();
         converter.registerUnit("cubit", 0.4572);
         assertEquals(0.4572, converter.convert("cubit", 1.0, "meter"), 1e-5);
+    }
+
+    @Test
+    @DisplayName("TC-B-06: loadConfig valid file applies ratios")
+    void tcB06_loadConfig_validFile() {
+        UnitConverter converter = new UnitConverter();
+        converter.loadConfig("src/test/resources/units-valid.json");
+        assertEquals(3.28084, converter.convert("meter", 1.0, "feet"), 1e-4);
+    }
+
+    @Test
+    @DisplayName("TC-B-07: loadConfig missing file keeps defaults")
+    void tcB07_loadConfig_missingFile_keepsDefaults() {
+        UnitConverter converter = new UnitConverter();
+        converter.loadConfig("src/test/resources/units-missing.json");
+        assertEquals(
+                1.0 * ConversionConstants.METER_TO_FEET,
+                converter.convert("meter", 1.0, "feet"),
+                1e-5);
     }
 
     @Test

@@ -18,5 +18,11 @@ public class UnitConverter {
                     "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
                             + line + "\"");
         }
+        String[] parts = line.split(":", 2);
+        double amount = Double.parseDouble(parts[1].trim());
+        if (amount < 0) {
+            throw new IllegalArgumentException(
+                    "ERROR [ERR-VAL-002]: Length must be non-negative. Got " + amount + ".");
+        }
     }
 }

@@ -26,4 +26,11 @@ class UnitConverterTest {
         UnitConverter converter = new UnitConverter();
         assertThrows(IllegalArgumentException.class, () -> converter.parse("meter"));
     }
+
+    @Test
+    @DisplayName("TC-A-03: negative value throws IllegalArgumentException")
+    void tcA03_negativeValue_throwsIllegalArgumentException() {
+        UnitConverter converter = new UnitConverter();
+        assertThrows(IllegalArgumentException.class, () -> converter.parse("meter:-1.0"));
+    }
 }

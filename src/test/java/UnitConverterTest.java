@@ -14,6 +14,13 @@ class UnitConverterTest {
     }
 
     @Test
+    @DisplayName("TC-B-02: convert meter to yard (delta 1e-5)")
+    void tcB02_convertMeterToYard() {
+        UnitConverter converter = new UnitConverter();
+        assertEquals(1.09361, converter.convert("meter", 1.0, "yard"), 1e-5);
+    }
+
+    @Test
     @DisplayName("TC-A-02: missing colon throws IllegalArgumentException")
     void tcA02_missingColon_throwsIllegalArgumentException() {
         UnitConverter converter = new UnitConverter();

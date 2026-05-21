@@ -6,6 +6,9 @@ public class UnitConverter {
         if ("meter".equals(sourceUnit) && "feet".equals(targetUnit)) {
             return sourceAmount * ConversionConstants.METER_TO_FEET;
         }
+        if ("meter".equals(sourceUnit) && "yard".equals(targetUnit)) {
+            return sourceAmount * ConversionConstants.METER_TO_YARD;
+        }
         return 0.0;
     }
 

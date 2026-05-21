@@ -1,11 +1,11 @@
-# PRD — 확장 가능한 Java 단위 변환 학습 시스템
+﻿# PRD — 확장 가능한 Java 단위 변환 학습 시스템
 
 | 항목 | 내용 |
 |------|------|
 | 문서명 | 00_PRD.md |
 | 버전 | 1.0 |
 | 작성일 | 2026-05-20 |
-| 기준 산출물 | Phase 4 Epic · User Journey · US-01~07 · Gherkin #1~8 · Level 5 체크리스트 |
+| 기준 산출물 | Phase 4 Epic · User Journey · US-01–07 · Gherkin #1–8 · Level 5 체크리스트 |
 | 대상 | UnitConverter_01 저장소 (레거시 CLI → BCE 구조) |
 | Java | 17 이상 |
 
@@ -31,12 +31,12 @@
 
 | ID | 목표 | 통과 측정 |
 |----|------|-----------|
-| **G-01** | README 비율·예시와 일치하는 환산 결과 제공 | Gherkin #1~3 IT PASS; DT-02~05 GREEN; `meter:2.5` → 8.2 ft, 2.7 yd (1자리) |
-| **G-02** | 입력·오류·출력 **문자열 계약** 검증 | GH-04~07 각 ERR 1줄·변환 0줄; US-01 AC 전부 충족 |
+| **G-01** | README 비율·예시와 일치하는 환산 결과 제공 | Gherkin #1–3 IT PASS; DT-02–05 GREEN; `meter:2.5` → 8.2 ft, 2.7 yd (1자리) |
+| **G-02** | 입력·오류·출력 **문자열 계약** 검증 | GH-04–07 각 ERR 1줄·변환 0줄; US-01 AC 전부 충족 |
 | **G-03** | BCE 레이어 분리 및 의존성 방향 준수 | entity→boundary import 0건; boundary 환산 상수(3.28084, 1.09361) 0건 |
 | **G-04** | JaCoCo 커버리지 목표 달성 | entity+control line≥95%; boundary line≥85%; data line≥80%; 전체 line≥85% |
 | **G-05** | 추가 요구 각 1건 이상 IT 증거 | US-04·05·06 AC 전부 충족 |
-| **G-06** | TDD·회귀 게이트 준수 | RED FAIL 확인 기록; DT-02~05·IT-OK-01 필수 PASS; @Disabled·assert 삭제 0건 |
+| **G-06** | TDD·회귀 게이트 준수 | RED FAIL 확인 기록; DT-02–05·IT-OK-01 필수 PASS; @Disabled·assert 삭제 0건 |
 
 ## 1.4 비목표 (Non-Goal) — 경계
 
@@ -73,15 +73,15 @@
 
 | ID | Journey 단계 | 시나리오 | 측정 가능 완료 신호 |
 |----|--------------|----------|---------------------|
-| **S-01** | 1~2 Awareness·Entry | README·레거시 실행 후 **계약 표**(비율·NEG·표현·ERR) 작성 | Gherkin Background·NEG-01~03 문서 존재 |
-| **S-02** | 3~4 Domain·TDD | DT RED→GREEN; ConversionEngine 단일 경로 | DT-02~05 GREEN; US-03 AC 충족 |
-| **S-03** | 5~7 Boundary·Data·Outcome | BT/IT·설정·포맷·회귀 게이트 | GH-01~08 8/8 PASS; G-04·G-05·G-06; 회고 md 1건 |
+| **S-01** | 1–2 Awareness·Entry | README·레거시 실행 후 **계약 표**(비율·NEG·표현·ERR) 작성 | Gherkin Background·NEG-01–03 문서 존재 |
+| **S-02** | 3–4 Domain·TDD | DT RED→GREEN; ConversionEngine 단일 경로 | DT-02–05 GREEN; US-03 AC 충족 |
+| **S-03** | 5–7 Boundary·Data·Outcome | BT/IT·설정·포맷·회귀 게이트 | GH-01–08 8/8 PASS; G-04·G-05·G-06; 회고 md 1건 |
 
 ---
 
 # 3. 기능 요구사항
 
-*기준: Phase 4 US-01~07 · Gherkin Background · NEG 정책 · 표현 계약*
+*기준: Phase 4 US-01–07 · Gherkin Background · NEG 정책 · 표현 계약*
 
 ## 3.1 핵심 기능 목록 (우선순위)
 
@@ -109,7 +109,7 @@
 | **targetAmount** | 소수점 **1자리**, half-up (예: `2.5 meter = 8.2 feet`, `2.7 yard`) |
 | **실패** | 변환 줄 **0줄** + 오류 **정확히 1줄** |
 
-**검증 예시 (US-03 / GH-01~03):**
+**검증 예시 (US-03 / GH-01–03):**
 
 | 입력 | 기대 (PLAIN 일부) |
 |------|-------------------|
@@ -127,7 +127,7 @@
 | 미등록 단위 | ERR-DOM-003 | `ERROR [ERR-DOM-003]: Unknown unit "{unit}".` |
 | 잘못된 출력 포맷 플래그 | ERR-FMT-002 | `ERROR [ERR-FMT-002]: Invalid output format "{format}". Allowed: PLAIN, JSON, CSV, TABLE.` |
 
-**US-01 / Gherkin #4~7:** 각 케이스 ERR 1줄, 변환 0줄.
+**US-01 / Gherkin #4–7:** 각 케이스 ERR 1줄, 변환 0줄.
 
 ### F-04 UnitRegistry — 필수
 
@@ -171,8 +171,8 @@
 
 | 구분 | 계약 |
 |------|------|
-| **순서** | RED(테스트 FAIL 확인) → GREEN(TC-ID 1~3개) → REFACTOR(전체 GREEN 후) |
-| **게이트** | DT-02~05·IT-OK-01 실패 시 작업 중단 |
+| **순서** | RED(테스트 FAIL 확인) → GREEN(TC-ID 1–3개) → REFACTOR(전체 GREEN 후) |
+| **게이트** | DT-02–05·IT-OK-01 실패 시 작업 중단 |
 | **금지** | assert 완화·삭제·@Disabled로 GREEN 달성 |
 
 ## 3.3 제약 사항 (Gherkin Background와 일치)
@@ -337,19 +337,19 @@
 | ☐ | ID | 인수 기준 | 검증 | Story / Gherkin |
 |---|-----|-----------|------|-----------------|
 | ☐ | AC-01 | `meter:2.5` → 3줄, 8.2 ft·2.7 yd·2.5 m, 오류 0 | IT / GH-01 | US-03 |
-| ☐ | AC-02 | `meter2.5`, `furlong:1`, `meter:-1`, `meter:2.5.3` 각 ERR 1줄·변환 0 | BT/IT | US-01, GH-04~07 |
+| ☐ | AC-02 | `meter2.5`, `furlong:1`, `meter:-1`, `meter:2.5.3` 각 ERR 1줄·변환 0 | BT/IT | US-01, GH-04–07 |
 | ☐ | AC-03 | `feet:10` 모든 줄 `10 feet =` 접두 | IT / GH-08 | US-04 |
 | ☐ | AC-04 | cubit 등록 후 `cubit:2` meter≈0.9; 등록 전 DOM-003 | IT | US-06 |
 | ☐ | AC-05 | invalid JSON → DATA-007; fallback 후 `meter:1` OK | DATA/IT | US-05 |
 | ☐ | AC-06 | JaCoCo G-04 수치 충족 | 리포트 | G-04 |
-| ☐ | AC-07 | Gherkin #1~8 → IT 8/8 PASS | IT | GH-01~08 |
+| ☐ | AC-07 | Gherkin #1–8 → IT 8/8 PASS | IT | GH-01–08 |
 | ☐ | AC-08 | RED FAIL 기록·REFACTOR 전 전체 GREEN | 로그 | US-07, G-06 |
 
 ## 7.2 회귀 보호 규칙
 
 | ID | 규칙 | 위반 시 |
 |----|------|---------|
-| **RG-01** | Background 비율 변경 시 DT-02~05·GH-01~03 동시 갱신 | merge 차단 |
+| **RG-01** | Background 비율 변경 시 DT-02–05·GH-01–03 동시 갱신 | merge 차단 |
 | **RG-02** | ERR-* 패턴 변경 시 BT golden 동시 갱신 | merge 차단 |
 | **RG-03** | 표현 계약 변경 시 GH-08·US-04 AC 동시 갱신 | merge 차단 |
 | **RG-04** | NEG-02 변경 시 GH-07·US-01 동시 갱신 | merge 차단 |
@@ -395,10 +395,10 @@
 
 | PRD | Phase 4 |
 |-----|---------|
-| §1.3 G-01~06 | Epic SC |
-| §2.2 S-01~03 | Journey 7단계 |
-| §3 | US-01~07 |
-| §3.3 NEG | NEG-01~03, GH-07 |
+| §1.3 G-01–06 | Epic SC |
+| §2.2 S-01–03 | Journey 7단계 |
+| §3 | US-01–07 |
+| §3.3 NEG | NEG-01–03, GH-07 |
 | §7 | Level 5 체크리스트 |
 
 ---
@@ -407,7 +407,7 @@
 
 README 갱신 시 아래를 PRD에서 반드시 이관할 것:
 
-- NEG-01~03 및 ERR-VAL-002
+- NEG-01–03 및 ERR-VAL-002
 - 표현 계약 (좌변 = 원입력)
 - ERR-* 코드 표 (1줄 규칙)
 - 반올림 1자리 half-up
@@ -416,8 +416,8 @@ README 갱신 시 아래를 PRD에서 반드시 이관할 것:
 - JSON 스키마·ERR-DATA-007·fallback
 - 동적 등록 문법·REGISTERED ACK
 - BCE 패키지·의존성 방향
-- 비목표 NG-01~04
-- 회귀 RG-01~06
+- 비목표 NG-01–04
+- 회귀 RG-01–06
 
 ---
 

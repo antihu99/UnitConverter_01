@@ -42,7 +42,7 @@
 
 ### PRD와의 연결
 
-요구·입출력·ERR 코드·커버리지·회귀 규칙의 **단일 진실원**은 [docs/PRD.md](docs/PRD.md)입니다. README는 실습자용 요약이며, 계약 변경 시 **PRD → README → Gherkin/TC** 순으로 동기화합니다.
+요구·입출력·ERR 코드·커버리지·회귀 규칙의 **단일 진실원**은 [docs/00_PRD.md](docs/00_PRD.md)입니다. README는 실습자용 요약이며, 계약 변경 시 **PRD → README → Gherkin/TC** 순으로 동기화합니다.
 
 ### 범위 밖 (Non-Goal)
 
@@ -183,7 +183,7 @@ meter:5.0
 | 설정 JSON 오류 | ERR-DATA-007 |
 | 단위 중복 등록 | ERR-DOM-004 |
 
-전체 목록: [docs/PRD.md](docs/PRD.md) §3.2
+전체 목록: [docs/00_PRD.md](docs/00_PRD.md) §3.2
 
 ---
 
@@ -289,7 +289,7 @@ mvn verify
 - IT-OK-01 (`meter:2.5` E2E)
 - Gherkin #1 ~ #8 시나리오 대응 IT
 
-규칙 상세: [docs/PRD.md](docs/PRD.md) §7.2 (RG-01 ~ RG-06)
+규칙 상세: [docs/00_PRD.md](docs/00_PRD.md) §7.2 (RG-01 ~ RG-06)
 
 ---
 
@@ -416,7 +416,7 @@ Source         Target Unit    Value
 | RG-05 | assert 삭제·`@Disabled`로 통과 **금지** |
 | RG-06 | REFACTOR는 **전체 TC GREEN** 후만 |
 
-계약 변경은 [docs/PRD.md](docs/PRD.md) 먼저 수정한 뒤 README·테스트를 따릅니다.
+계약 변경은 [docs/00_PRD.md](docs/00_PRD.md) 먼저 수정한 뒤 README·테스트를 따릅니다.
 
 ### 테스트 없는 PR
 
@@ -448,7 +448,7 @@ docs: sync README with PRD §3.3 NEG policy
 ### 개발 규칙 요약
 
 - [.cursorrules](.cursorrules) — TDD·레이어·금지 패턴
-- [docs/UnitConverterRequirements.txt](docs/UnitConverterRequirements.txt) — FR/BR/QR/AR ID
+- [docs/01_UnitConverterRequirements.txt](docs/01_UnitConverterRequirements.txt) — FR/BR/QR/AR ID
 
 ---
 
@@ -462,7 +462,10 @@ MIT License — **학습용** 프로젝트입니다. 자유롭게 fork·수정·
 
 | 문서 | 설명 |
 |------|------|
-| [docs/PRD.md](docs/PRD.md) | 제품 요구사항 (Phase 5, 계약·AC·회귀) |
-| [docs/요구사항.md](docs/요구사항.md) | 초기 README 요구사항 (실습 Activities 원문) |
-| [docs/UnitConverterRequirements.txt](docs/UnitConverterRequirements.txt) | 요구 ID 추적 |
+| [docs/00_PRD.md](docs/00_PRD.md) | 제품 요구사항 (Phase 5, 계약·AC·회귀) |
+| [docs/02_요구사항.md](docs/02_요구사항.md) | 초기 README 요구사항 (실습 Activities 원문) |
+| [docs/01_UnitConverterRequirements.txt](docs/01_UnitConverterRequirements.txt) | 요구 ID 추적 |
+| [docs/03_To-Do.md](docs/03_To-Do.md) | 구현 작업 목록 (Phase 6) |
+| [docs/04_README_review.md](docs/04_README_review.md) | README vs PRD 검토 |
+| [docs/05_traceability_matrix.md](docs/05_traceability_matrix.md) | User Story × To-Do 추적 매트릭스 |
 | [.cursorrules](.cursorrules) | AI·TDD·아키텍처 규칙 |

@@ -62,7 +62,36 @@
 | 56 | 사용자 | JUnit 5 테스트 스켈레톤 … 메서드 본문 fail("RED") 한 줄만 |
 | 57 | 사용자 | report 폴더에 보고서 작성 |
 | 58 | 사용자 | 지금까지 agent 대화를 prompting 폴더에 … My_All_prompt 추가 … 취소선 ~~ 오류 개선 모든 문서 수정 |
-
+| 59 | 사용자 | git 의 현재 브랜치를 보여줘 |
+| 60 | 사용자 | github 와 동기화가 안된거 같아 다시 동기화를 진행해줘 |
+| 61 | 사용자 | 현재 브랜치를 알려줘 |
+| 62 | 사용자 | 원격 기준으로 동기화를 원했는데, local 기준으로 동기화가 된거 같아요. |
+| 63 | 사용자 | 원격 기준으로 로컬을 동기화 해주세요 |
+| 64 | 사용자 | 네.. A-01 브랜치 기준으로 맞춰주세요 |
+| 65 | 사용자 | 그럼 현재 작업 브랜치는 어디인가요? |
+| 66 | 사용자 | RED 브랜치는 MERGE 후 삭제되어야해 |
+| 67 | 사용자 | 그럼 RED 브랜치는 원격과 로컬에 모두 없나요? |
+| 68 | 사용자 | 로컬과 원격의 작업 브랜치는 어디인가요? |
+| 69 | 사용자 | 로컬 A-01-SPEC 브랜치도 로컬에서 삭제해주세요 |
+| 70 | 사용자 | A-01 브랜치에서 GREEN 브랜치를 추가해 주세요 원격과 로컬 모두 생성해주세요 |
+| 71 | 사용자 | 혹시... PROMPTING 폴더에 있는 @prompting/00_SPEC_PROMPT.md  를 보고,  당시 작업했던 내용을 보고, 보고서를 REPROT 폴더에 만들어주세요. REPORT 폴더의 파일명 순서를 다시 정리해주세요 |
+| 72 | 사용자 | 현재 작업 BRANCH 는 어디인가요? |
+| 73 | 사용자 | 🔲 GREEN 첫 번째 AC — Java<br>[단계] TDD GREEN만 수행한다. REFACTOR는 하지 않는다.<br>프로젝트 내 JAVA 파일<br><br>대상 테스트: TC-B-01<br>  파일: src/test/java/UnitConverterTest.java<br>  내용: assertEquals(8.20210, converter.convert("meter", 2.5, "feet"), 1e-5);<br><br>PRD §3.2 비즈니스 로직:<br>  1 meter = 3.28084 feet<br>  1 meter = 1.09361 yard<br>  (비율은 상수로 추출 — 인라인 하드코딩 금지)<br><br>할 일:<br>1. mvn test 실행 → TC-B-01 FAIL 확인<br>2. convert() 함수 최소 구현 (meter→feet 분기만)<br>3. mvn test 재실행 → TC-B-01 PASS 확인<br><br>금지:<br>- 다른 TC (TC-B-02~07, TC-A-01~07) 동시 구현<br>- REFACTOR (이름 정리, 구조 분리) 이번 커밋에… |
+| 74 | 사용자 | 진행 |
+| 75 | 사용자 | 로컬과 원격에  COMMIT 진행해주세요, 제안한 COMMIT 메세지 앞에 "TC-B-01 GREEN 완료" 도 붙여주세요 |
+| 76 | 사용자 | [단계] TDD GREEN만 수행한다. REFACTOR는 하지 않는다.<br>프로젝트내 JAVA 파일<br><br>대상 테스트:  TC-A-02<br>  파일: src/test/java/UnitConverterTest.java<br>  내용: assertEquals(8.20210, converter.convert("meter", 2.5, "feet"), 1e-5);<br><br>PRD §3.2 비즈니스 로직:<br>  1 meter = 3.28084 feet<br>  1 meter = 1.09361 yard<br>  (비율은 상수로 추출 — 인라인 하드코딩 금지)<br><br>할 일:<br>1. mvn test 실행 → TC-A-02 FAIL 확인<br>2. convert() 함수 최소 구현 (meter→feet 분기만)<br>3. mvn test 재실행 →TC-A-02 PASS 확인<br><br>금지:<br>- 다른 TC 동시 구현<br>- REFACTOR (이름 정리, 구조 분리) 이번 커밋에서 금지<br>- 비율 3.28084 인라인 사용 금지 (상수 정의 후 사용)<br><br>산출물:<br>- … |
+| 77 | 사용자 | 네.. 커밋 진행해주세요 |
+| 78 | 사용자 | [단계] TDD GREEN만 수행한다. REFACTOR는 하지 않는다.<br>프로젝트내 JAVA 파일<br><br>대상 테스트:  TC-B-02 <br><br>PRD §3.2 비즈니스 로직:<br>  1 meter = 3.28084 feet<br>  1 meter = 1.09361 yard<br>  (비율은 상수로 추출 — 인라인 하드코딩 금지)<br><br>할 일:<br>1. mvn test 실행 → TC-B-02 FAIL 확인<br>2. convert() 함수 최소 구현 convert("meter",v,"yard") 추가<br>3. mvn test 재실행 →TC-B-02 PASS 확인<br><br>금지:<br>- 다른 TC 동시 구현<br>- REFACTOR (이름 정리, 구조 분리) 이번 커밋에서 금지<br>- 비율 3.28084 인라인 사용 금지 (상수 정의 후 사용)<br><br>산출물: |
+| 79 | 사용자 | 네 모두 진행해주세요 |
+| 80 | 사용자 | [단계] TDD GREEN만 수행한다. REFACTOR는 하지 않는다.<br>프로젝트내 JAVA 파일<br><br>대상 테스트:    TC-A-03<br><br>PRD §3.2 비즈니스 로직:<br>  1 meter = 3.28084 feet<br>  1 meter = 1.09361 yard<br>  (비율은 상수로 추출 — 인라인 하드코딩 금지)<br><br>할 일:<br>1. mvn test 실행 → TC-A-03	 FAIL 확인<br>2. 음수 입력 해결<br>3. mvn test 재실행 →TC-A-03	 PASS 확인<br><br>금지:<br>- 다른 TC 동시 구현<br>- REFACTOR (이름 정리, 구조 분리) 이번 커밋에서 금지<br>- 비율 3.28084 인라인 사용 금지 (상수 정의 후 사용)<br><br>산출물:<br>- 해당 TC가 통과하는 최소 프로덕션 코드<br>- 커밋 메시지 제안: "TC-A-03	음수 입력 → 예외 반환	feat(green): validate negative value" |
+| 81 | 사용자 | 모두 진행하세요 |
+| 82 | 사용자 | [단계] TDD GREEN만 수행한다. REFACTOR는 하지 않는다.<br>프로젝트내 JAVA 파일<br><br>대상 테스트:   TC-B-03<br><br>PRD §3.2 비즈니스 로직:<br>  1 meter = 3.28084 feet<br>  1 meter = 1.09361 yard<br>  (비율은 상수로 추출 — 인라인 하드코딩 금지)<br><br>할 일:<br>1. mvn test 실행 → TC-B-03	 FAIL 확인<br>2. convert("feet",v,"meter") 역변환  해결<br>3. mvn test 재실행 →TC-B-03	 PASS 확인<br><br>금지:<br>- 다른 TC 동시 구현<br>- REFACTOR (이름 정리, 구조 분리) 이번 커밋에서 금지<br>- 비율 3.28084 인라인 사용 금지 (상수 정의 후 사용)<br><br>산출물:<br>- 해당 TC가 통과하는 최소 프로덕션 코드<br>- 커밋 메시지 제안: "TC-B-03 GREEN feat(green): feet to meter reverse" |
+| 83 | 사용자 | 네 진행하세요 |
+| 84 | 사용자 | TC-B-03 GREEN 완료 feat(green): feet to meter reverse 에 대한 COMMIT 이 진행중인가요? |
+| 85 | 사용자 | [단계] TDD GREEN만 수행한다. REFACTOR는 하지 않는다.<br>프로젝트내 JAVA 파일<br><br>대상 테스트:   각 단계별 TC <br><br>PRD §3.2 비즈니스 로직:<br>  1 meter = 3.28084 feet<br>  1 meter = 1.09361 yard<br>  (비율은 상수로 추출 — 인라인 하드코딩 금지)<br><br>할 일:<br>1. mvn test 실행 → 각 단계별 TC  FAIL 확인 후 해결<br>3. mvn test 재실행 → 각 단계별 TC PASS 확인<br><br>산출물:<br>- 해당 TC가 통과하는 최소 프로덕션 코드<br><br>GITHUB 동기화 진행<br>각 단게별로  GITHUB 커밋  및 푸시 진행<br>각 단계별 커밋 메시지 는  아래 표를 참고하여, TC 번호 제안된 커밋 메세지로 작성함.<br><br>커밋 순서	Track	대상 TC	구현 내용	커밋 메시지<br>6번째	Track A	TC-A-04	없는 단위 → 예외 반환	feat(green): validate unknown unit<br>7번째	Track B	TC-B-04~0… |
+| 86 | 사용자 | 모든 TC(TC-A-01~07, TC-B-01~07)가 통과한 후 전체 테스트를 실행하라.<br><br>mvn test # 또는: gradle test<br><br>커버리지 측정:<br>mvn jacoco:report # target/site/jacoco/index.html<br><br>확인 항목:<br>- 모든 TC PASS (0 failures)<br>- Domain Logic 커버리지 ≥ 95%<br>- Boundary Layer 커버리지 ≥ 85%<br>- 비율 상수 3.28084 / 1.09361이 인라인으로 남아 있지 않음<br>- main() 함수에 변환 로직이 남아 있지 않음 (Domain으로 분리됨) |
+| 87 | 사용자 | 전체 검증 결과를 DOCS 폴더에 저장해줘 |
+| 88 | 사용자 | AGENT와의 대화를 prompting 폴더에 저장해주고, 내가 입력한 prompt 는 @prompting/My_All_prompt.md  에 덧붙여 주고, @prompting/git_prompt.md  파일에는 git 명령어만 저장해줘. 마지막으로 report 폴더에 보고서를 작성해줘 |
 ---
 
 ## 프롬프트 흐름 요약
@@ -93,8 +122,9 @@ flowchart LR
 | **5. Phase 6 README** | 20–22 | 실습자용 요약 문서, PRD 동기화 | `docs/00_PRD.md` | `README.md`, `docs/02_요구사항.md` |
 | **6. GitHub 업로드** | 23–26 | Spec 단계 산출물 원격 보관·브랜치 정리 | 로컬 docs·rules | `origin/A-01-0_SPEC` (`#1단계. README 및 PRD 작성`) |
 | **7. 구현 준비·검토** | 28–31 | To-Do·README↔PRD 검토·US↔To-Do 추적 | `00_PRD.md`, `03_To-Do.md` | `03_To-Do.md`, `04_README_review.md`, `05_traceability_matrix.md` |
-| **8. 문서·명령 아카이브** | 27, 32–35 | 대화·Git 명령·프롬프트 목록 보존·파일명 규칙 통일 | `00_SPEC_PROMPT.md`(원본 transcript) | `00_SPEC_PROMPT.md`, `git_prompt.md`, `My_All_prompt.md`(본 파일) |
-| **9. RED·TDD** | 36–58 | 브랜치 red, RED 스텁·테스트·결함·보고 | `08_red_단계_수정전략`, `09_defect_list` | `06`–`10` docs, `report/01`, BCE 스텁, `UiBoundaryRedTest` |
+| **8. 문서·명령 아카이브** | 27, 32–35 | 대화·Git 명령·프롬프트 목록 보존·파일명 규칙 통일 | `00_SPEC_PROMPT.md`(원본 transcript) | `00_SPEC_PROMPT.md`, `git_prompt.md`, `My_All_prompt.md`, `report/01_SPEC` |
+| **9. RED·TDD** | 36–58 | 브랜치 red, RED 스텁·테스트·결함·보고 | `08_red_단계_수정전략`, `09_defect_list` | `06`–`10` docs, `report/02`, BCE 스텁, `UiBoundaryRedTest` |
+| **10. GREEN·검증** | 59–88 | `green` 브랜치·TC별 최소 구현·전체 검증·아카이브 | `00_PRD.md` §3.2, `08_red_단계_수정전략` | `UnitConverter.java`, `docs/11_GREEN_전체_검증_결과.md`, `report/03` |
 
 ### No별 한 줄 의도·참조
 
@@ -134,7 +164,11 @@ flowchart LR
 | 45–48 | test_plan·README RED To-Do | `07_test_plan.md`, `README.md` |
 | 49–54 | RED 테스트·결함 문서 | `09_defect_list`, `08_red_단계_수정전략` |
 | 55–56 | Dual-Track RED 명세·JUnit 스켈레톤 | `10_RED_듀얼트랙_테스트_명세`, `fail("RED")` |
-| 57–58 | RED 보고·prompting 아카이브 | `report/01`, `02_RED_대화_전체.md` |
+| 57–58 | RED 보고·prompting 아카이브 | `report/02`, `02_RED_대화_전체.md` |
+| 59–68 | Git 동기화·`green` 생성·SPEC 보고 재정리 | `origin/A-01`, `report/01_SPEC` |
+| 69–77 | TC-B-01~03, TC-A-02~03 단계별 GREEN·커밋 | `UnitConverterTest.java`, `UnitConverter.java` |
+| 78–85 | TC 일괄 GREEN·푸시·전체 `mvn test`·JaCoCo | `docs/11_GREEN_전체_검증_결과.md` |
+| 86–88 | GREEN 대화·프롬프트·git·보고 아카이브 | `03_GREEN_대화_전체.md`, `git_prompt.md` §11 |
 
 ### 동기화 규칙 (프롬프트 흐름에서 반복된 전제)
 
@@ -161,8 +195,11 @@ flowchart LR
 | `작업시나리오/전체 작업 시나리오.md` | 6h Activities·브랜치 전략 |
 | `prompting/00_SPEC_PROMPT.md` | Agent 전체 대화 (Spec) |
 | `prompting/02_RED_대화_전체.md` | Agent 대화 (RED) |
+| `prompting/03_GREEN_대화_전체.md` | Agent 대화 (GREEN) |
 | `prompting/git_prompt.md` | Git/GitHub 명령 모음 |
 | `prompting/My_All_prompt.md` | 사용자 프롬프트만 (본 파일) |
+| `docs/11_GREEN_전체_검증_결과.md` | GREEN 전 TC·커버리지 검증 |
+| `report/03_GREEN_단계_작업보고서.md` | GREEN 단계 보고 |
 
 ### Markdown 표기 (GitHub 취소선 방지)
 
@@ -174,4 +211,4 @@ flowchart LR
 
 ---
 
-*총 사용자 프롬프트: **58개** (No.1–58). Spec 1–35 · RED 36–58. `mvn test` 12건 `fail("RED")` — GREEN 대기.*
+*총 사용자 프롬프트: **88개** (No.1–88). Spec 1–35 · RED 36–58 · GREEN 59–88. GREEN 후 `mvn test` 31건 PASS.*

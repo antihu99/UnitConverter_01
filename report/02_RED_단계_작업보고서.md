@@ -1,14 +1,14 @@
-﻿# UnitConverter — RED 단계 작업 보고서
+# UnitConverter — RED 단계 작업 보고서
 
 | 항목 | 내용 |
 |------|------|
-| 문서명 | 01_RED_단계_작업보고서.md |
-| 버전 | 1.0 |
+| 문서명 | 02_RED_단계_작업보고서.md |
+| 버전 | 1.1 |
 | 작성일 | 2026-05-21 |
 | 프로젝트 | UnitConverter_01 (Java 17, Maven, JUnit 5) |
-| Git 브랜치 | `red` |
+| Git 통합 | `A-01` ← PR #3 RED merge (`c18bf16`), `red` 브랜치 삭제됨 |
 | TDD 단계 | **RED** (Dual-Track UI + Logic) |
-| 작성 | QA / TDD 실습 보고 |
+| 선행 보고 | [01_SPEC_단계_작업보고서.md](./01_SPEC_단계_작업보고서.md) |
 
 ---
 
@@ -18,13 +18,15 @@
 
 | 항목 | 상태 |
 |------|------|
-| Spec 단계 (Phase 1–6) | ✅ 완료 (`A-01` merge) |
+| Spec 단계 (Phase 1–6) | ✅ 완료 — [01_SPEC_단계_작업보고서.md](./01_SPEC_단계_작업보고서.md) |
 | RED 테스트 스켈레톤 | ✅ 12건 등록 (`fail("RED")`) |
 | `mvn test` | ❌ **BUILD FAILURE** (의도적 RED) |
-| GREEN 구현 | ⏳ 미착수 |
+| PR `red` → `A-01` | ✅ PR #3 merge (`c18bf16`) |
+| `red` 브랜치 | ✅ merge 후 로컬·원격 삭제 |
+| GREEN 구현 | ⏳ `green` 브랜치에서 진행 예정 |
 | 결함 문서 | ✅ DEF-001–031 Open |
 
-**핵심 메시지:** 테스트는 계약을 고정했고, 프로덕션은 RED 스텁 상태이므로 **실패가 정상**이다. GREEN은 [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) 순서로 진행한다.
+**핵심 메시지:** 테스트는 계약을 고정했고, 프로덕션은 RED 스텁 상태이므로 **실패가 정상**이다. GREEN은 `green` 브랜치에서 [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) 순서로 진행한다.
 
 ---
 
@@ -46,14 +48,18 @@
 | 커버리지 | JaCoCo 0.8.12 |
 | 설정 | Jackson JSON/YAML |
 
-### 2.3 브랜치 전략
+### 2.3 브랜치 전략 (현재)
 
 ```text
-main → A-01 (통합) ← spec ✅ merged
-              └── red ← 현재 작업 (RED)
-              └── green (예정)
+main → A-01 (통합) ← spec ✅ PR#2, red ✅ PR#3
+              └── green ← 현재 작업 (GREEN)
               └── refactoring (예정)
 ```
+
+| 브랜치 | 상태 |
+|--------|------|
+| `red` | merge 후 **삭제** (로컬·원격 없음) |
+| `green` | `A-01`에서 분기, `origin/green` 추적 |
 
 ---
 
@@ -81,7 +87,7 @@ src/main/java/com/unitconverter/   ← BCE 스텁
 src/test/java/.../               ← RED 스켈레톤 2 클래스
 UnitConverter.java                 ← 레거시 (루트)
 docs/00–10                         ← 요구·계획·결함·RED 명세
-report/01_*                        ← 본 보고서
+report/01_SPEC, 02_RED             ← 단계별 보고서
 ```
 
 ---
@@ -149,6 +155,7 @@ report/01_*                        ← 본 보고서
 |:-:|------|
 | ☑ | `mvn test` BUILD FAILURE 확인 |
 | ☑ | 실패 원인 `RED` 문자열 (스켈레톤) |
+| ☑ | PR #3 `red` → `A-01` merge |
 | ☐ | RED FAIL 로그 스크린샷/파일 첨부 (US-07) |
 | ☐ | `@Disabled` / assert 삭제 0건 |
 
@@ -189,22 +196,22 @@ Diff: [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) §4
 
 ## 7. 문서 산출물
 
-### 7.1 docs/
+### 7.1 docs/ (RED)
 
 | 번호 | 문서 | 용도 |
 |:----:|------|------|
-| 00 | PRD | 계약·AC |
-| 03 | To-Do | 구현 작업 |
-| 07 | test_plan | 테스트 계획 |
-| 08 | red_단계_수정전략 | GREEN diff |
-| 09 | defect_list | 결함 31건 |
-| 10 | RED_듀얼트랙_테스트_명세 | TC Given/When/Then |
+| 06 | [06_전략_RED.md](../docs/06_전략_RED.md) | RED 전략 |
+| 07 | [07_test_plan.md](../docs/07_test_plan.md) | 테스트 계획 |
+| 08 | [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) | GREEN diff |
+| 09 | [09_defect_list.md](../docs/09_defect_list.md) | 결함 31건 |
+| 10 | [10_RED_듀얼트랙_테스트_명세.md](../docs/10_RED_듀얼트랙_테스트_명세.md) | TC Given/When/Then |
 
-### 7.2 report/ (본 폴더)
+### 7.2 report/
 
-| 번호 | 문서 |
+| 순번 | 문서 |
 |:----:|------|
-| 01 | 본 보고서 — RED 단계 작업 종합 |
+| 01 | [01_SPEC_단계_작업보고서.md](./01_SPEC_단계_작업보고서.md) |
+| 02 | 본 보고서 — RED 단계 작업 종합 |
 
 ### 7.3 README 체크리스트
 
@@ -229,23 +236,23 @@ Diff: [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) §4
 
 | 순서 | 작업 | 완료 기준 |
 |:----:|------|-----------|
-| 1 | G-1 `ConversionEngine` + `UnitRegistry.withDefaults` | `DomainLogicRedTest` TC-B-RED-01–03 GREEN |
-| 2 | G-3–4 `LineParser` + `InputValidator` | `UiBoundaryRedTest` TC-A-RED-01–04 GREEN |
+| 1 | `green` 브랜치에서 G-1 `ConversionEngine` | TC-B-RED-01–03 GREEN |
+| 2 | G-3–4 `LineParser` + `InputValidator` | TC-A-RED-01–04 GREEN |
 | 3 | G-5 `ConfigurationLoader` | TC-B-RED-05–06 GREEN |
 | 4 | 스켈레톤 → 실제 assert 교체 | `fail("RED")` 제거 |
 | 5 | `mvn test` 12/12 PASS | BUILD SUCCESS |
 | 6 | `mvn verify` + JaCoCo | Domain ≥95%, Boundary ≥85% |
-| 7 | PR `red` → `A-01` | 리뷰 10+ |
+| 7 | PR `green` → `A-01` | 리뷰 10+ |
 
-**금지:** RED 단계에서 GREEN·REFACTOR 동시 진행, assert 삭제로 통과.
+**금지:** RED·GREEN·REFACTOR 동시 진행, assert 삭제로 통과.
 
 ---
 
 ## 10. 결론
 
 - **RED 단계 목표 달성:** Dual-Track 테스트 12건이 `fail("RED")`로 계약을 고정했고, `mvn test` 실패는 TDD RED 원칙에 부합한다.
-- **다음 마일스톤:** [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md)에 따라 Domain 환산(G-1)부터 GREEN한다.
-- **보고 시점 브랜치:** `red` @ `a8b81f3` (A-01-0_SPEC merge 기준)
+- **통합:** `7ef1a85` → PR #3 → `A-01` @ `c18bf16`; `red` 브랜치는 정책에 따라 삭제됨.
+- **다음 마일스톤:** **`green`** 브랜치에서 [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) G-1부터 GREEN한다.
 
 ---
 
@@ -253,10 +260,10 @@ Diff: [08_red_단계_수정전략.md](../docs/08_red_단계_수정전략.md) §4
 
 | 리소스 | 경로 |
 |--------|------|
+| SPEC 단계 보고 | [01_SPEC_단계_작업보고서.md](./01_SPEC_단계_작업보고서.md) |
+| RED 대화 아카이브 | [../prompting/02_RED_대화_전체.md](../prompting/02_RED_대화_전체.md) |
 | 저장소 README | [../README.md](../README.md) |
-| 작업 시나리오 | [../작업시나리오/전체 작업 시나리오.md](../작업시나리오/전체%20작업%20시나리오.md) |
 | Surefire | `target/surefire-reports/` |
-| JaCoCo (verify 후) | `target/site/jacoco/index.html` |
 
 ---
 

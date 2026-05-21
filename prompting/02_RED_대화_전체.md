@@ -60,7 +60,7 @@
 | 41 | 사용자 | JUnit 스켈레톤 `fail("RED")` only |
 | 42 | 에이전트 | `UiBoundaryRedTest`, `DomainLogicRedTest` 12건 |
 | 43 | 사용자 | `report` 폴더 보고서 |
-| 44 | 에이전트 | `report/01_RED_단계_작업보고서.md` |
+| 44 | 에이전트 | `report/02_RED_단계_작업보고서.md` |
 | 45 | 사용자 | prompting 대화 저장 + My_All_prompt + `~~` 수정 |
 | 46 | 에이전트 | 본 파일·프롬프트 갱신·전체 md `~`→`–` |
 
@@ -155,7 +155,7 @@
 | 31–34 | 사용자/에이전트 | 실패 로그·NormalTest 6건 |
 | 35–38 | 사용자/에이전트 | `09_defect_list`, `08_red_단계_수정전략` |
 | 39–42 | 사용자/에이전트 | RED 명세·JUnit 스켈레톤 12건 `fail("RED")` |
-| 43–44 | 사용자/에이전트 | `report/01_RED_단계_작업보고서.md` |
+| 43–44 | 사용자/에이전트 | `report/02_RED_단계_작업보고서.md` |
 | 45–46 | 사용자/에이전트 | prompting 아카이브·My_All_prompt·`~` 표기 수정 |
 
 ---
@@ -171,7 +171,7 @@
 | `docs/10_RED_듀얼트랙_테스트_명세.md` | Dual-Track RED TC |
 | `src/test/.../UiBoundaryRedTest.java` | Track A 스켈레톤 |
 | `src/test/.../DomainLogicRedTest.java` | Track B 스켈레톤 |
-| `report/01_RED_단계_작업보고서.md` | RED 보고서 |
+| `report/02_RED_단계_작업보고서.md` | RED 보고서 (구 `01_RED_*`) |
 | `pom.xml` + BCE 스텁 | Maven·RED 프로덕션 스텁 |
 
 ---

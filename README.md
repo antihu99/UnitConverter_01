@@ -507,7 +507,9 @@ MIT License — **학습용** 프로젝트입니다. 자유롭게 fork·수정·
 | [docs/07_test_plan.md](docs/07_test_plan.md) | 테스트 계획서 (JUnit 5·JaCoCo) |
 | [docs/08_red_단계_수정전략.md](docs/08_red_단계_수정전략.md) | RED 결함 분석·GREEN diff |
 | [docs/09_defect_list.md](docs/09_defect_list.md) | 결함 목록 (DEF-001–031) |
-| [report/01_RED_단계_작업보고서.md](report/01_RED_단계_작업보고서.md) | RED 단계 작업 보고서 |
+| [docs/11_GREEN_전체_검증_결과.md](docs/11_GREEN_전체_검증_결과.md) | GREEN 전체 검증 (TC·JaCoCo·정적 체크) |
+| [report/01_SPEC_단계_작업보고서.md](report/01_SPEC_단계_작업보고서.md) | SPEC 단계 작업 보고서 (Phase 1–6) |
+| [report/02_RED_단계_작업보고서.md](report/02_RED_단계_작업보고서.md) | RED 단계 작업 보고서 |
 | [prompting/02_RED_대화_전체.md](prompting/02_RED_대화_전체.md) | RED 단계 Agent 대화 |
 | [prompting/My_All_prompt.md](prompting/My_All_prompt.md) | 사용자 프롬프트 목록 |
 | [.cursorrules](.cursorrules) | AI·TDD·아키텍처 규칙 |

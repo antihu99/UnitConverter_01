@@ -283,3 +283,296 @@ git branch -vv
 ---
 
 *상세 절차·터미널 출력은 [작업시나리오/00_git-github-로컬연결.md](../작업시나리오/00_git-github-로컬연결.md) · RED 대화 [02_RED_대화_전체.md](./02_RED_대화_전체.md) 참고.*
+---
+
+## 11. GREEN 단계 — 브랜치·커밋·푸시 (2026-05-21)
+
+> GREEN 세션 Agent 실행 `git` 명령만 (중복 제거).
+
+### 11.1
+
+```powershell
+git branch --show-current
+```
+
+### 11.2
+
+```powershell
+git status -sb && git remote -v && git branch -vv
+```
+
+### 11.3
+
+```powershell
+git fetch origin 2>&1
+```
+
+### 11.4
+
+```powershell
+git status -sb; git remote -v; git branch -vv
+```
+
+### 11.5
+
+```powershell
+git log --oneline -3 HEAD; git log --oneline -3 origin/red 2>&1
+```
+
+### 11.6
+
+```powershell
+git status; git rev-list --left-right --count origin/red...red
+```
+
+### 11.7
+
+```powershell
+git pull origin red; git push -u origin red
+```
+
+### 11.8
+
+```powershell
+git status -sb; git branch -vv
+```
+
+### 11.9
+
+```powershell
+git fetch origin --prune; git branch -a -vv
+```
+
+### 11.10
+
+```powershell
+git status -sb; git log --oneline -5 HEAD; Write-Host "--- origin/red ---"; git log --oneline -5 origin/red 2>&1; Write-Host "--- origin/main ---"; git log --oneline -5 origin/main 2>&1
+```
+
+### 11.11
+
+```powershell
+git fetch origin --prune
+```
+
+### 11.12
+
+```powershell
+git branch --show-current; git status -sb
+```
+
+### 11.13
+
+```powershell
+git rev-list --left-right --count origin/red...red; git log --oneline -3 red; git log --oneline -3 origin/red
+```
+
+### 11.14
+
+```powershell
+git branch -a -vv
+```
+
+### 11.15
+
+```powershell
+git status; git ls-remote --heads origin
+```
+
+### 11.16
+
+```powershell
+git log --oneline --graph -10 origin/A-01; Write-Host "---"; git log --oneline --graph -10 origin/red; Write-Host "---"; git merge-base origin/A-01 origin/red
+```
+
+### 11.17
+
+```powershell
+git fetch origin --prune; git reset --hard origin/red; git clean -fd; git status -sb; git log --oneline -1 HEAD; git log --oneline -1 origin/red
+```
+
+### 11.18
+
+```powershell
+git fetch origin --prune; git checkout A-01; git reset --hard origin/A-01; git clean -fd; git status -sb; git log --oneline -3 HEAD
+```
+
+### 11.19
+
+```powershell
+git branch -u origin/A-01 A-01; git branch -vv
+```
+
+### 11.20
+
+```powershell
+git branch --show-current; git branch -a | Select-String "red"
+```
+
+### 11.21
+
+```powershell
+git branch -d red; git push origin --delete red
+```
+
+### 11.22
+
+```powershell
+git fetch origin --prune; git branch -a
+```
+
+### 11.23
+
+```powershell
+git branch -a | Select-String -Pattern "red" -CaseSensitive:$false; git ls-remote --heads origin red 2>&1
+```
+
+### 11.24
+
+```powershell
+git branch --show-current; git status -sb; git branch -vv; git ls-remote --heads origin
+```
+
+### 11.25
+
+```powershell
+git branch --show-current; git branch -d A-01-SPEC; git branch -a
+```
+
+### 11.26
+
+```powershell
+git branch -D A-01-SPEC; git branch -a
+```
+
+### 11.27
+
+```powershell
+git fetch origin; git checkout A-01; git pull origin A-01; git checkout -b green; git push -u origin green; git branch -vv; git status -sb
+```
+
+### 11.28
+
+```powershell
+git log --oneline --graph -15 A-01
+```
+
+### 11.29
+
+```powershell
+git branch --show-current; git log --oneline a8b81f3^..a8b81f3; git show --stat --oneline fd2d106; git show --stat --oneline 936f075; git show --stat --oneline df08aa0
+```
+
+### 11.30
+
+```powershell
+git status -sb; git branch --show-current
+```
+
+### 11.31
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-B-01 GREEN 완료 feat(green): implement convert meter to feet (delta 1e-5)"; git push origin green; git status -sb
+```
+
+### 11.32
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-A-02 GREEN 완료 feat(green): validate missing colon"; git push origin green; git log -1 --oneline; git status -sb
+```
+
+### 11.33
+
+```powershell
+git push origin green; git status -sb; git log -2 --oneline
+```
+
+### 11.34
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-B-02 GREEN 완료 feat(green): implement convert meter to yard (delta 1e-5)"; git push origin green; git log -1 --oneline; git status -sb
+```
+
+### 11.35
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-A-03 GREEN 완료 feat(green): validate negative value"; git push origin green; git log -1 --oneline; git status -sb
+```
+
+### 11.36
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-B-03 GREEN 완료 feat(green): feet to meter reverse"; git push origin green; git log -1 --oneline
+```
+
+### 11.37
+
+```powershell
+git status -sb; git log -3 --oneline; git log origin/green -1 --oneline 2>$null
+```
+
+### 11.38
+
+```powershell
+git push origin green; git status -sb
+```
+
+### 11.39
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-A-04 GREEN 완료 feat(green): validate unknown unit"; git push origin green
+```
+
+### 11.40
+
+```powershell
+git push origin green
+```
+
+### 11.41
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-B-04~05 GREEN 완료 feat(green): convertAll and registerUnit"
+```
+
+### 11.42
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-A-01,06,07 GREEN 완료 feat(green): boundary happy path"
+```
+
+### 11.43
+
+```powershell
+git add src/main/java/UnitConverter.java src/test/java/UnitConverterTest.java; git commit -m "TC-B-06~07 GREEN 완료 feat(green): loadConfig with fallback"; git log -6 --oneline; git status -sb
+```
+
+### 11.44
+
+```powershell
+git show --stat HEAD; git show --stat 045508c
+```
+
+### 11.45
+
+```powershell
+git diff src/main/java/UnitConverter.java; git log -1 --name-only 045508c
+```
+
+### 11.46
+
+```powershell
+git show HEAD:src/main/java/UnitConverter.java | Select-String -Pattern "loadConfig"
+```
+
+### 11.47
+
+```powershell
+git push origin green; git log origin/green -5 --oneline; git status -sb
+```
+
+### 11.48
+
+```powershell
+git log -1 --oneline; git branch --show-current
+```

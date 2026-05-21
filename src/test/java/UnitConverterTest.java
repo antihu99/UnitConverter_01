@@ -113,6 +113,13 @@ class UnitConverterTest {
     }
 
     @Test
+    @DisplayName("TC-A-05: non-numeric amount throws IllegalArgumentException")
+    void tcA05_nonNumericAmount_throwsIllegalArgumentException() {
+        UnitConverter converter = new UnitConverter();
+        assertThrows(IllegalArgumentException.class, () -> converter.parse("meter:abc"));
+    }
+
+    @Test
     @DisplayName("TC-A-04: unknown unit throws IllegalArgumentException")
     void tcA04_unknownUnit_throwsIllegalArgumentException() {
         UnitConverter converter = new UnitConverter();

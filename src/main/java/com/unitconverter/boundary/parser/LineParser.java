@@ -1,11 +1,27 @@
 package com.unitconverter.boundary.parser;
 
-/**
- * RED 단계: 파싱 미구현.
- */
 public class LineParser {
 
     public ParsedInput parseConversionLine(String line) {
-        throw new UnsupportedOperationException("RED: implement LineParser.parseConversionLine");
+        if (line == null || !line.contains(":")) {
+            throw new IllegalArgumentException(
+                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
+                            + line + "\"");
+        }
+        String[] parts = line.split(":", 2);
+        String unit = parts[0].trim();
+        if (unit.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
+                            + line + "\"");
+        }
+        try {
+            double amount = Double.parseDouble(parts[1].trim());
+            return new ParsedInput(unit, amount);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(
+                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
+                            + line + "\"");
+        }
     }
 }

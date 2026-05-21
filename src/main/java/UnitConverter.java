@@ -33,7 +33,14 @@ public class UnitConverter {
         }
         String[] parts = line.split(":", 2);
         String unit = parts[0].trim();
-        double amount = Double.parseDouble(parts[1].trim());
+        double amount;
+        try {
+            amount = Double.parseDouble(parts[1].trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(
+                    "ERROR [ERR-FMT-001]: Invalid input format. Expected \"unit:value\" or \"1 unit = X meter\". Input=\""
+                            + line + "\"");
+        }
         if (amount < 0) {
             throw new IllegalArgumentException(
                     "ERROR [ERR-VAL-002]: Length must be non-negative. Got " + amount + ".");

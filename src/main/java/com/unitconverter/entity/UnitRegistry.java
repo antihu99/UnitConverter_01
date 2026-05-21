@@ -5,28 +5,31 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * RED 단계: 시드 단위·등록 로직 미구현.
- */
 public class UnitRegistry {
 
     private final Map<String, Double> metersPerOneUnit = new LinkedHashMap<>();
 
     public static UnitRegistry withDefaults() {
-        // RED: meter/feet/yard 시드 없음
-        return new UnitRegistry();
+        UnitRegistry registry = new UnitRegistry();
+        registry.register("meter", ConversionConstants.METERS_PER_METER);
+        registry.register("feet", ConversionConstants.METERS_PER_FEET);
+        registry.register("yard", ConversionConstants.METERS_PER_YARD);
+        return registry;
     }
 
     public void register(String unitName, double metersPerOne) {
-        // RED: 동적 등록 no-op
+        metersPerOneUnit.put(unitName, metersPerOne);
     }
 
     public boolean contains(String unitName) {
-        return false;
+        return metersPerOneUnit.containsKey(unitName);
     }
 
     public double getMetersPerOne(String unitName) {
-        throw new DomainException("ERR-DOM-003", "Unknown unit \"" + unitName + "\".");
+        if (!contains(unitName)) {
+            throw new DomainException("ERR-DOM-003", "Unknown unit \"" + unitName + "\".");
+        }
+        return metersPerOneUnit.get(unitName);
     }
 
     public List<String> getAllUnitNames() {
@@ -42,6 +45,6 @@ public class UnitRegistry {
     }
 
     public void putAll(Map<String, Double> units) {
-        // RED: 설정 로드 반영 미구현
+        metersPerOneUnit.putAll(units);
     }
 }

@@ -110,6 +110,14 @@
 | 104 | 사용자 | A-01 과 REFACTORING PR 을 생성해 주세요 "REFACTORING 단계" |
 | 105 | 사용자 | 리팩토링 완료 후 전체 테스트·커버리지 → DOCS 저장 (TC, GM, if-else, 매직 넘버, 분리, 커버리지) |
 | 106 | 사용자 | REPORT 폴더에 보고서 작성, PROMPTING 폴더에 PROMPT 저장 |
+| 107 | 사용자 | 토큰 workflow scope 추가 후 `git push origin A-01` (workflow 업로드) |
+| 108 | 사용자 | `Cursor AI_퀴즈 - 문제.docx` 업로드 |
+| 109 | 사용자 | MAIN 브랜치에 `원본_` 이니셜 붙여 업로드 |
+| 110 | 사용자 | GitHub `A-01` 모든 파일을 로컬에 저장 |
+| 111 | 사용자 | 원격·로컬 브랜치 동기화 |
+| 112 | 사용자 | 현재 브랜치 알려줘 |
+| 113 | 사용자 | `A-01`에서 `feature` 브랜치 생성 |
+| 114 | 사용자 | prompt 저장·업로드·PR 생성 — "New Feature 단계 PR" |
 ---
 
 ## 프롬프트 흐름 요약
@@ -144,6 +152,7 @@ flowchart LR
 | **9. RED·TDD** | 36–58 | 브랜치 red, RED 스텁·테스트·결함·보고 | `08_red_단계_수정전략`, `09_defect_list` | `06`–`10` docs, `report/02`, BCE 스텁, `UiBoundaryRedTest` |
 | **10. GREEN·검증** | 59–88 | `green` 브랜치·TC별 최소 구현·전체 검증·아카이브 | `00_PRD.md` §3.2, `08_red_단계_수정전략` | `UnitConverter.java`, `docs/11_GREEN_전체_검증_결과.md`, `report/03` |
 | **11. REFACTORING** | 89–106 | Golden Master·분석·BCE 리팩터·PR #6·검증·아카이브 | `12_리팩토링_계획서.md` | `ConvertLengthUseCase`, `docs/13_REFACTORING_전체_검증_결과.md`, `report/04` |
+| **12. New Feature** | 107–114 | Git 정리·`feature` 브랜치·퀴즈 docx·아카이브·PR | `작업시나리오/전체 작업 시나리오.md` §4 | `feature`, `report/05`, `prompting/06` |
 
 ### No별 한 줄 의도·참조
 
@@ -193,6 +202,9 @@ flowchart LR
 | 95–99 | 스멜·ECB·계획서(분석만) → docs 저장 | `12_리팩토링_계획서.md` |
 | 100–103 | REFACTORING 구현·동기화 | BCE 위임, `ConvertLengthUseCase`, `RoundingPolicy` |
 | 104–106 | PR #6·검증 docs·report/prompting 아카이브 | `13_REFACTORING_전체_검증_결과.md`, `report/04` |
+| 107–109 | workflow 푸시·퀴즈 docx·main `원본_` 업로드 | `main` @ `51ad552` |
+| 110–112 | A-01 로컬 동기화·브랜치 prune·현재 브랜치 확인 | `origin/A-01` |
+| 113–114 | `feature` 생성·New Feature 아카이브·PR | `origin/feature`, `report/05` |
 
 ### 동기화 규칙 (프롬프트 흐름에서 반복된 전제)
 
@@ -229,6 +241,8 @@ flowchart LR
 | `docs/13_REFACTORING_전체_검증_결과.md` | REFACTORING 검증 |
 | `report/03_GREEN_단계_작업보고서.md` | GREEN 단계 보고 |
 | `report/04_REFACTORING_단계_작업보고서.md` | REFACTORING 단계 보고 |
+| `prompting/06_NewFeature_대화_전체.md` | Agent 대화 (New Feature) |
+| `report/05_NewFeature_단계_작업보고서.md` | New Feature 단계 보고 |
 
 ### Markdown 표기 (GitHub 취소선 방지)
 
@@ -240,4 +254,4 @@ flowchart LR
 
 ---
 
-*총 사용자 프롬프트: **106개** (No.1–106). Spec 1–35 · RED 36–58 · GREEN 59–88 · REFACTORING 89–106. REFACTORING 후 `mvn test` 35건 PASS (Golden Master 4건 포함).*
+*총 사용자 프롬프트: **114개** (No.1–114). Spec 1–35 · RED 36–58 · GREEN 59–88 · REFACTORING 89–106 · New Feature 107–114.*

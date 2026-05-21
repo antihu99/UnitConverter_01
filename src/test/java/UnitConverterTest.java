@@ -40,4 +40,11 @@ class UnitConverterTest {
         UnitConverter converter = new UnitConverter();
         assertThrows(IllegalArgumentException.class, () -> converter.parse("meter:-1.0"));
     }
+
+    @Test
+    @DisplayName("TC-A-04: unknown unit throws IllegalArgumentException")
+    void tcA04_unknownUnit_throwsIllegalArgumentException() {
+        UnitConverter converter = new UnitConverter();
+        assertThrows(IllegalArgumentException.class, () -> converter.parse("parsec:1.0"));
+    }
 }

@@ -1,9 +1,9 @@
-# Git / GitHub 명령어 모음 (Agent 대화 추출)
+﻿# Git / GitHub 명령어 모음 (Agent 대화 추출)
 
 | 항목 | 내용 |
 |------|------|
-| 출처 | [00_SPEC_PROMPT.md](./00_SPEC_PROMPT.md) · Cursor agent-transcripts |
-| 저장일 | 2026-05-20 |
+| 출처 | [00_SPEC_PROMPT.md](./00_SPEC_PROMPT.md), [02_RED_대화_전체.md](./02_RED_대화_전체.md) · Cursor agent-transcripts |
+| 저장일 | 2026-05-20 (Spec) · 2026-05-21 (RED) |
 | 원격 저장소 | https://github.com/antihu99/UnitConverter_01.git |
 | 로컬 경로 | `d:\Vs_workplace\Java_project\UnitConverter_01` |
 
@@ -11,7 +11,7 @@
 
 ---
 
-## 1. GitHub 원격 ↔ 로컬 연결 (Turn 1~7)
+## 1. GitHub 원격 ↔ 로컬 연결 (Turn 1–7)
 
 ### 사전 확인
 
@@ -52,7 +52,7 @@ git push          # 원격에 올리기
 
 ---
 
-## 2. PRD·README 업로드 — 브랜치 `A-01-SPEC` (Turn 75~81)
+## 2. PRD·README 업로드 — 브랜치 `A-01-SPEC` (Turn 75–81)
 
 ### 상태 확인
 
@@ -82,7 +82,7 @@ cd "d:\Vs_workplace\Java_project\UnitConverter_01"; git status; git log -1 --for
 
 ---
 
-## 3. 나머지 파일 전체 업로드 — `A-01-SPEC` (Turn 82~87)
+## 3. 나머지 파일 전체 업로드 — `A-01-SPEC` (Turn 82–87)
 
 ```powershell
 cd "d:\Vs_workplace\Java_project\UnitConverter_01"; git status; git ls-files --others --exclude-standard
@@ -102,7 +102,7 @@ cd "d:\Vs_workplace\Java_project\UnitConverter_01"; git status; git ls-tree -r -
 
 ---
 
-## 4. GitHub 브랜치 목록 조회 (Turn 88~94)
+## 4. GitHub 브랜치 목록 조회 (Turn 88–94)
 
 ```powershell
 cd "d:\Vs_workplace\Java_project\UnitConverter_01"; git fetch origin; git branch -a; git ls-remote --heads origin
@@ -132,7 +132,7 @@ git push -u origin A-01-SPEC
 
 ---
 
-## 5. `A-01-0_SPEC`에 스쿼시 업로드 (Turn 95~100)
+## 5. `A-01-0_SPEC`에 스쿼시 업로드 (Turn 95–100)
 
 ```powershell
 cd "d:\Vs_workplace\Java_project\UnitConverter_01"; git status; git branch -v
@@ -182,4 +182,104 @@ cd "d:\Vs_workplace\Java_project\UnitConverter_01"; gh api repos/antihu99/UnitCo
 
 ---
 
-*상세 절차·터미널 출력은 [작업시나리오/00_git-github-로컬연결.md](../작업시나리오/00_git-github-로컬연결.md) 참고.*
+## 9. RED 단계 — `A-01` 동기화·`red` 브랜치 (2026-05-21)
+
+> GitHub에서 `A-01-0_SPEC` → `A-01` PR merge(#2) 후, 로컬·`red` 작업 브랜치 정리.
+
+### 9.1 원격 반영 후 `A-01` 로컬 동기화
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git fetch origin --prune
+git branch -r
+```
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git checkout A-01
+git pull origin A-01
+```
+
+### 9.2 merge 완료된 로컬 브랜치 삭제
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git branch -d A-01-0_SPEC
+```
+
+### 9.3 stash 복원 (작업시나리오 수정분)
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git stash push -m "temp: before merge A-01-0_SPEC into A-01" -- "작업시나리오/전체 작업 시나리오.md"
+```
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git checkout A-01-0_SPEC
+git stash pop
+```
+
+### 9.4 현재 브랜치·상태 확인
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git branch --show-current
+```
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git status -sb
+```
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git branch -vv
+```
+
+### 9.5 작업시나리오 수정 — `A-01-0_SPEC` push (merge 전 시점)
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git add "작업시나리오/전체 작업 시나리오.md"
+git commit -m "#1단계. 전체 작업 시나리오에 추천 브랜치 구조 추가"
+git push origin A-01-0_SPEC
+```
+
+### 9.6 `red` 브랜치 생성·GitHub 동기화
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git checkout A-01
+git pull origin A-01
+git checkout -b red
+git push -u origin red
+```
+
+```powershell
+cd "d:\Vs_workplace\Java_project\UnitConverter_01"
+git status -sb
+git branch -vv
+```
+
+### 9.7 RED 단계 참고 (GitHub 웹 — PR merge)
+
+| 항목 | 내용 |
+|------|------|
+| PR | Merge pull request #2 — `A-01-0_SPEC` → `A-01` |
+| merge 후 커밋 | `a8b81f3` (로컬 `A-01` pull 기준) |
+| 삭제된 원격 브랜치 | `origin/A-01-0_SPEC` (`git fetch --prune` 후 반영) |
+| 현재 작업 브랜치 | `red` (`origin/red` 추적) |
+
+---
+
+## 10. RED 단계 커밋 메시지 (추가)
+
+| 메시지 | 브랜치 | 비고 |
+|--------|--------|------|
+| `#1단계. 전체 작업 시나리오에 추천 브랜치 구조 추가` | `A-01-0_SPEC` | merge 전 push |
+| Merge pull request #2 from antihu99/A-01-0_SPEC | `A-01` | GitHub PR merge |
+
+---
+
+*상세 절차·터미널 출력은 [작업시나리오/00_git-github-로컬연결.md](../작업시나리오/00_git-github-로컬연결.md) · RED 대화 [02_RED_대화_전체.md](./02_RED_대화_전체.md) 참고.*

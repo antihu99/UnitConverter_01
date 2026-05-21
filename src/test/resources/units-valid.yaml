@@ -1,0 +1,6 @@
+baseUnit: meter
+units:
+  - name: feet
+    metersPerOneUnit: 0.3048
+  - name: yard
+    metersPerOneUnit: 0.9144

@@ -1,6 +1,7 @@
 package com.unitconverter.boundary.output;
 
 import com.unitconverter.entity.ConversionResult;
+import com.unitconverter.entity.RoundingPolicy;
 import java.util.List;
 
 public class PlainOutputRenderer {
@@ -13,13 +14,9 @@ public class PlainOutputRenderer {
                     "%.1f %s = %.1f %s%n",
                     sourceAmount,
                     sourceUnit,
-                    roundOne(result.targetAmount()),
+                    RoundingPolicy.toOneDecimal(result.targetAmount()),
                     result.targetUnit()));
         }
         return sb.toString().trim();
-    }
-
-    private static double roundOne(double value) {
-        return Math.round(value * 10.0) / 10.0;
     }
 }

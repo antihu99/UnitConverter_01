@@ -659,3 +659,69 @@ gh pr create --base A-01 --head refactoring --title "REFACTORING 단계" --body 
 | `ff813ca` | `refactor(domain): 순번7 RoundingPolicy` |
 | `5a598f6` | `test: Golden Master 회귀 테스트 및 생성 스크립트` |
 | `b4670ba` | `docs: 12_리팩토링_계획서 및 README Golden Master 섹션` |
+
+---
+
+## 13. New Feature 단계 — 브랜치·동기화·PR (2026-05-21)
+
+> New Feature 세션 Agent 실행 `git` / `gh` 명령만.
+
+### 13.1
+
+```powershell
+git checkout main
+git pull origin main
+```
+
+### 13.2
+
+```powershell
+git add "원본_Cursor AI_퀴즈 - 문제.docx"
+git commit -m "docs: 원본 Cursor AI 퀴즈 문제 docx 추가"
+git push origin main
+```
+
+### 13.3
+
+```powershell
+git checkout A-01
+git fetch origin --prune
+git reset --hard origin/A-01
+```
+
+### 13.4
+
+```powershell
+git fetch origin --prune
+git branch -D refactoring
+git branch -vv
+```
+
+### 13.5
+
+```powershell
+git rev-parse A-01 origin/A-01 main origin/main
+```
+
+### 13.6
+
+```powershell
+git checkout A-01
+git pull origin A-01
+git checkout -b feature
+git push -u origin feature
+```
+
+### 13.7
+
+```powershell
+git add prompting/ report/
+git commit -m "docs: New Feature 단계 prompting·보고서 아카이브"
+git push origin feature
+```
+
+### 13.8
+
+```powershell
+gh pr create --base A-01 --head feature --title "New Feature 단계 PR" --body "..."
+```
